@@ -27,7 +27,7 @@ export default defineConfig({
 
   //站点地图
   sitemap: {
-    hostname: 'http://localhost:5173.com',
+    hostname: 'https://zrokei.github.io',
   },
 
   themeConfig: {
