@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { devDependencies } from 'D:/vitepress/package.json'
+import { devDependencies } from '../../package-lock.json'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
