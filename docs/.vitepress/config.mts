@@ -61,7 +61,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '学习记录', link: '/getting-started' },
-      { text: 'Examples', link: '/markdown-examples' },
+      { text: '文档', link: '/posts/蓝桥杯嵌入式' },
       { text: `VitePress ${ devDependencies.vitepress.replace('^','') }`, link: 'https://vitepress.dev/zh/', noIcon: true },
     ],
     
