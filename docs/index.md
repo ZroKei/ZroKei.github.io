@@ -11,14 +11,15 @@ hero:
       text: 文档
       link: /markdown-examples
     - theme: alt
-      text: 归档
+      text: API Examples
       link: /api-examples
 
 features:
-  - title: 航线规划
-    details: 记录从零开始的代码进阶之路，虽然偶尔坠机，但从未停止起飞。
-  - title: 维修车间
-    details: 存放各类技术折腾笔记、避坑指南，以及那些“修修补补又能用”的方案。
-  - title: 漫游云端
-    details: 随笔、感悟与碎碎念，在数字世界里寻找那一抹属于自己的静谧。
+  - title: Feature A
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature B
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Feature C
+    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+---
 
