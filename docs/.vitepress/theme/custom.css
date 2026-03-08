@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+
+:root{
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa4b2;
+  --brand: #6ee7b7; /* mint */
+  --accent: #60a5fa; /* light blue */
+  --text: #e6eef8;
+  --glass: rgba(255,255,255,0.04);
+}
+
+/* Light mode overrides */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #f7fafc;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --brand: #0ea5a3;
+    --accent: #2563eb;
+    --text: #0f1724;
+    --glass: rgba(15,23,36,0.03);
+  }
+}
+
+/* Base resets */
+html,body,#app{height:100%;}
+body{
+  font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(0,0,0,0.02) 100%);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Header / nav tweaks */
+.vp-nav{
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.vp-nav a{
+  color: var(--text);
+}
+
+/* Home hero */
+.hero{
+  padding: 56px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.hero .hero-content{
+  max-width:720px;
+}
+.hero h1{
+  font-weight:700;
+  letter-spacing:-0.02em;
+  font-size:2.1rem;
+  margin:0 0 8px 0;
+}
+.hero p{
+  color:var(--muted);
+  margin:0 0 18px 0;
+  font-size:1.05rem;
+}
+.hero .actions .vp-btn{
+  margin-right:12px;
+}
+
+/* Features grid */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:28px;
+}
+.features .feature{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding:16px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.features .feature h3{
+  margin:0 0 8px 0;
+  color:var(--text);
+}
+.features .feature p{color:var(--muted);margin:0}
+
+/* Cards for listing pages/posts */
+.card{
+  background:var(--card);
+  border-radius:10px;
+  padding:16px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+  border:1px solid rgba(255,255,255,0.03);
+}
+.card h2{margin:0 0 8px 0}
+.card p{color:var(--muted);margin:0}
+
+/* Improve code blocks contrast */
+.vp-content pre{
+  border-radius:8px;
+  overflow:auto;
+  background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.28));
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* Responsive tweaks */
+@media (max-width:800px){
+  .hero{flex-direction:column;align-items:flex-start}
+  .hero h1{font-size:1.6rem}
+}
+
+/* Small helpers */
+.muted{color:var(--muted)}
