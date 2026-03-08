@@ -3,12 +3,12 @@
 layout: home
 
 hero:
-  name: "嵌入式仙人の雷霆小站"
-  text: "我是个神笔"
-  tagline: 传奇造石王
+  name: "这里是停机坪"
+  text: "允许起飞"
+  tagline: 传奇坠机王
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: 文档
       link: /markdown-examples
     - theme: alt
       text: API Examples
