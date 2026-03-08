@@ -3,7 +3,7 @@ import { devDependencies } from '../../package.json'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  lang: 'zh-CN',
+  lang: 'Zh-CN',
   title: "Study",
   description: "我的嵌入式学习",
 
@@ -16,6 +16,7 @@ export default defineConfig({
       // 开启图片懒加载
       lazyLoading: true
     },
+    [点我跳转：基础功能](#基础功能)
   },
 
   //fav图标
