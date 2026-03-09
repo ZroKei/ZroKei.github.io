@@ -21,7 +21,7 @@ export default defineConfig({
 
   //fav图标
   head: [
-      ['link',{ rel: 'icon', href: 'public/logo.png'}],
+      ['link',{ rel: 'icon', href: '/logo.png'}],
   ],
 
   appearance:'dark', 
