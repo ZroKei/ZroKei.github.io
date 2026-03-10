@@ -54,7 +54,7 @@ export default defineConfig({
     //页脚
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2019-2023 present Evan You',
+      copyright: 'Copyright © ${new Date().getFullYear()} ZroKei',
       // 自动更新时间
       //copyright: `Copyright © 2019-${new Date().getFullYear()} present Evan You`, 
     },
@@ -83,7 +83,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/ZroKei' }
     ],
 
     //本地搜索
