@@ -4,7 +4,7 @@ import { devDependencies } from '../../package.json'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: 'Zh-CN',
-  title: "Study",
+  title: "ZroKei's Blog",
   description: "我的嵌入式学习",
 
   base: '/', //网站部署的路径，默认根目录
