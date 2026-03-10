@@ -49,6 +49,7 @@ export default defineConfig({
     sidebar: [
       {
         text: '指南',
+        collapsed: false, // 默认展开
         items: [
           { text: '前言', link: '/preface' },
           { text: '快速上手', link: '/getting-started' },
