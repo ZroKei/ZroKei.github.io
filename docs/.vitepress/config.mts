@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
-import { devDependencies } from '../../package.json'
+import pkg from '../../package.json' assert { type: 'json' }
+import { assert } from 'node:console'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -42,7 +43,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: '学习记录', link: '/getting-started' },
       { text: '文档', link: '/posts/蓝桥杯嵌入式' },
-      { text: `VitePress ${ devDependencies.vitepress.replace('^','') }`, link: 'https://vitepress.dev/zh/', noIcon: true },
+      { text: `VitePress ${ pkg.devDependencies.vitepress.replace('^','') }`, link: 'https://vitepress.dev/zh/', noIcon: true },
     ],
     //侧边栏
     sidebar: [
