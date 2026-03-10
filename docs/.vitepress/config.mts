@@ -35,7 +35,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
 
-    logo: '../public/logo.png',
+    logo: '/logo.png',
 
     siteTitle: 'ZroKei', //标题隐藏
     //导航栏
