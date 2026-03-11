@@ -2,7 +2,6 @@
 import DefaultTheme from 'vitepress/theme'
 import './style/index.css'
 
-import './style/vp-code-group.css'
 export default {
   extends: DefaultTheme, // 继承默认主题
   
