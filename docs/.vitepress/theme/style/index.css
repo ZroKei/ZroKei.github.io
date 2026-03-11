@@ -4,3 +4,5 @@
 @import './blur.css';
 /* style/index.css */
 @import './hidden.css';
+/* .vitepress/theme/style/index.css */
+@import './vp-code-group.css';
