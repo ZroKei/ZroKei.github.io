@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "樱小路ルナ"
   text: "露娜SAMA"
-  tagline: 
+  tagline: asahi
   
   actions:
     - theme: brand
