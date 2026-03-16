@@ -38,7 +38,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     
-    
+    //标题logo
+    logo: '/logo.png',
 
     siteTitle: 'ZroKei', //标题隐藏
     //返回顶部文字修改
