@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "桜小路ルナ"
-  text: "允许起飞"
-  tagline: 传奇坠机王
+  name: "樱小路ルナ"
+  text: "露娜SAMA"
+  tagline: 
   
   actions:
     - theme: brand
