@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "这里是停机坪"
+  name: "桜小路ルナ"
   text: "允许起飞"
   tagline: 传奇坠机王
   
