@@ -23,7 +23,7 @@ export default defineConfig({
 
   //fav图标
   head: [
-      ['link',{ rel: 'icon', href: '/logo.png'}],
+      ['link',{ rel: 'icon', href: '/head or Fav.jpg'}],
   ],
 
   appearance:'dark', 
@@ -39,7 +39,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     
     //标题logo
-    logo: '/logo.png',
+    logo: '/head or Fav.jpg', //路径相对于public文件夹
 
     siteTitle: 'ZroKei', //标题隐藏
     //返回顶部文字修改
