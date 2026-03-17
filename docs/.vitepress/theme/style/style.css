@@ -1,10 +1,27 @@
-body {
-  background-image: url('/background.png');
-  background-size: cover;       /* 图片铺满 */
-  background-repeat: no-repeat; /* 不重复 */
-  background-attachment: fixed; /* 固定背景 */
-  background-position: center;  /* 居中 */
+:root {
+  --bg-overlay: rgba(255, 255, 255, 0.45);
+  --text-color: #000000;
+  --vp-sidebar-width: 200px !important;
 }
+
+
+.dark {
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --text-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://github.com/ZroKei/blogImg/blob/main/1000169077.png?raw=true');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: var(--text-color);
+  transition: background-image 0.3s ease;
+}
+
 /* 让页脚背景完全透明，取消模糊 */
 .VPFooter {
   background-color: transparent !important; /* 背景完全透明 */
@@ -15,13 +32,13 @@ body {
 /* 1. 让导航栏透明并取消毛玻璃模糊 */
 .VPNav {
   background-color: transparent !important;
-  
+
 }
 
 /* 2. 让侧边栏透明 */
 .VPSidebar {
   background-color: rgba(255, 255, 255, 0.1) !important; /* 10% 的透明白色 */
-  border-right: none !important;
+  max-width: 20%;
 }
 
 /* 3. 让主内容区域透明 */
