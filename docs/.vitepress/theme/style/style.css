@@ -1,5 +1,4 @@
 body {
-  background-image: url('/background.png');
   background-size: cover;       /* 图片铺满 */
   background-repeat: no-repeat; /* 不重复 */
   background-attachment: fixed; /* 固定背景 */
