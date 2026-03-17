@@ -40,3 +40,25 @@ body {
 .vp-doc div[class*='language-'] {
   background-color: rgba(0, 0, 0, 0.5) !important; /* 半透明黑色 */
 }
+/* docs/.vitepress/theme/style.css */
+
+/* 1. 让代码块顶部的白色标签栏（显示 c c 的区域）透明 */
+.vp-doc .tabs {
+  background-color: transparent !important; /* 将白色背景设为透明 */
+  border-bottom: none !important;          /* 移除白色栏的底边框，让顶部更干净 */
+}
+
+/* 2. 让注释部分的文字（.token.comment）清晰可见 */
+.vp-doc .token.comment {
+  color: #aaa !important; /* 使用清晰的亮灰色。你也可以改为 #ccc 或其他你喜欢的清晰亮色 */
+}
+
+/* 3. (可选但推荐) 让顶部标签文字（'c c'）在透明背景上清晰 */
+.vp-doc .tabs label {
+  color: #ddd !important; /* 使标签文字变亮，确保在背景图上能被看清 */
+}
+/* (可选增强) 让整个代码块容器也一致地透明 */
+.vp-doc div[class*='language-'] {
+  background-color: transparent !important; /* 或设为 rgba(0, 0, 0, 0.3) 稍微加一点深色底色，视背景图而定 */
+  box-shadow: none !important;              /* 移除阴影以获得纯净的透明感 */
+}
