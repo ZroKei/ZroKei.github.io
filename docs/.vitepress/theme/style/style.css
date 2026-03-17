@@ -5,10 +5,10 @@ body {
   background-attachment: fixed; /* 固定背景 */
   background-position: center;  /* 居中 */
 }
-/* 半透明背景 + 背景模糊效果 */
+/* 让页脚背景完全透明，取消模糊 */
 .VPFooter {
-  background-color: rgba(255, 255, 255, 0.1) !important; /* 浅色半透明，夜间模式可改为 rgba(0,0,0,0.2) */
-  backdrop-filter: blur(10px); /* 毛玻璃模糊度 */
-  -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important; /* 微弱的玻璃边缘反光 */
+  background-color: transparent !important; /* 背景完全透明 */
+  backdrop-filter: none !important;         /* 取消模糊效果 */
+  -webkit-backdrop-filter: none !important; /* 取消 Safari 模糊 */
+  border-top: none !important;              /* 去掉顶部分割线，防止割裂感 */
 }
