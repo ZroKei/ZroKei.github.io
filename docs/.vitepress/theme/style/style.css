@@ -5,16 +5,10 @@ body {
   background-attachment: fixed; /* 固定背景 */
   background-position: center;  /* 居中 */
 }
-html, body, #app {
-  height: 100%;
-}
-
-.Layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.VPContent {
-  flex: 1;
+/* 半透明背景 + 背景模糊效果 */
+.VPFooter {
+  background-color: rgba(255, 255, 255, 0.1) !important; /* 浅色半透明，夜间模式可改为 rgba(0,0,0,0.2) */
+  backdrop-filter: blur(10px); /* 毛玻璃模糊度 */
+  -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important; /* 微弱的玻璃边缘反光 */
 }
