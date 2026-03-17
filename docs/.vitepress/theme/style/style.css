@@ -62,3 +62,20 @@ body {
   background-color: transparent !important; /* 或设为 rgba(0, 0, 0, 0.3) 稍微加一点深色底色，视背景图而定 */
   box-shadow: none !important;              /* 移除阴影以获得纯净的透明感 */
 }
+/* 1. 针对代码组顶部的非激活状态标签 */
+.vp-code-group .tabs label {
+  color: #333 !important; /* 将文字改为深灰色，更显眼 */
+  font-weight: 600 !important; /* 加粗文字 */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8); /* 给文字加一个微弱的白色光晕，防止背景太杂 */
+}
+
+/* 2. 针对当前选中的（激活状态）标签 */
+.vp-code-group .tabs input:checked + label {
+  color: #000 !important; /* 激活状态用纯黑色 */
+  border-bottom: 2px solid var(--vp-c-brand) !important; /* 保留底部的品牌色横线 */
+}
+
+/* 3. 鼠标悬停时的效果 */
+.vp-code-group .tabs label:hover {
+  color: var(--vp-c-brand) !important; /* 悬停时变蓝（或你的主题色） */
+}
