@@ -8,7 +8,7 @@
             {
                 "match": "\\.md$",
                 "isAsync": true,
-                "cmd": "publish.bat" 
+                "cmd": "auto_push.bat" 
             }
         ]
     }
