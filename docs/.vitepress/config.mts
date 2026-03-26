@@ -47,7 +47,7 @@ export default defineConfig({
     //导航栏
     nav: [
       { text: '主页', link: '/' },
-      { text: '学习记录', link: '/getting-started' },
+      { text: '学习记录', link: '/posts/学习记录' },
       { text: '文档', link: '/posts/蓝桥杯嵌入式' },
       { text: `VitePress ${ pkg.devDependencies.vitepress.replace('^','') }`, link: 'https://vitepress.dev/zh/', noIcon: true },
     ],
@@ -62,7 +62,7 @@ export default defineConfig({
           { text: '配置', link: '/configuration' },
           { text: '页面', link: '/page' },
           { text: '文档', link: '/posts/蓝桥杯嵌入式' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
+          { text: '定时器中断', link: '/posts/定时器中断' },
         ],
       },
     ],
