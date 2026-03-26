@@ -1,0 +1,16 @@
+{
+
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.fontSize": 14,
+    // 在这里添加你的插件配置
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.md$",
+                "isAsync": true,
+                "cmd": "auto_push.bat" 
+            }
+        ]
+    }
+
+}
