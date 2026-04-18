@@ -1,4 +1,4 @@
 git add .
-:: å¦‚æœæ²¡æœ‰æ›´æ”¹åˆ™ä¸æäº¤ï¼Œé¿å…æŠ¥é”™
-git diff-index --quiet HEAD || git commit -m "Auto update blog:å¯¹.mdæ–‡æ¡£è¿›è¡Œæ›´æ–°"
+:: Èç¹ûÃ»ÓĞ¸ü¸ÄÔò²»Ìá½»£¬±ÜÃâ±¨´í
+git diff-index --quiet HEAD || git commit -m "Auto update blog:¶Ô.md½øĞĞ¸üĞÂ"
 git push
