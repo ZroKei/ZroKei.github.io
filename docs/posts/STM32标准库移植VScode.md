@@ -63,7 +63,53 @@
 "stm32f10x_conf.h","stm32f10x_it.c","stm32f10x_it.h"这三个文件
 将.h文件复制到Inc文件夹内，.c文件复制到Src文件夹
 
+可以新建一个System文件夹用来存放各个模块的底层代码
+
 然后修改CMakeLists.txt文件：
 找到set(sources_SRCS)和set(include_DIRS)这两部分代码，在set(sources_SRCS)代码上方添加代码：
 
+```c
+# 2. 收集源文件（自动搜索所有库里的 .c）
+file(GLOB_RECURSE LIB_SOURCES 
+    "${CMAKE_CURRENT_SOURCE_DIR}/Libraries/*.c"
+)
+file(GLOB_RECURSE SYSTEM_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/System/*.c")
+```
+
+然后修改set(sources_SRCS)为：
+
+```c
+# Sources
+set(sources_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/stm32f10x_it.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/startup_stm32f103xx.S  # <--- 请根据实际文件名修改
+    ${LIB_SOURCES}
+    ${SYSTEM_SOURCES}  # <--- 别忘了把 System 里的文件也加进来
+)
+```
+
+修改set(include_DIRS)为：
+
+```c
+# Include directories for all compilers
+set(include_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/System                                          # 包含你的 System 文件夹
+    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/CMSIS/CM3/CoreSupport
+    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x
+    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/STM32F10x_StdPeriph_Driver/inc
+)
+```
+
+然后在下方找到set(symbols_c_SYMB)代码
+
+将其修改为：
+
+```c
+set(symbols_c_SYMB
+    "USE_STDPERIPH_DRIVER"  # 开启标准库开关
+    "STM32F10X_MD"         # 设置芯片容量（中容量）
+)
+```
 
