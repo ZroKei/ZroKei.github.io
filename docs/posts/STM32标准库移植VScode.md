@@ -57,3 +57,13 @@
 我们需要去ST的官方网站找到他提供的标准库代码的压缩包
 
 [ST官网](https://www.st.com.cn/content/st_com/zh/search.html#q=STSW-STM32054-t=tools-page=1)
+
+然后我们需要将官方标准库文件夹中将Libraries文件夹移动到我们自己创建的项目文件夹中
+然后在文件\stsw-stm32054_v3-6-0\STM32F10x_StdPeriph_Lib_V3.6.0\Project\STM32F10x_StdPeriph_Template中找到
+"stm32f10x_conf.h","stm32f10x_it.c","stm32f10x_it.h"这三个文件
+将.h文件复制到Inc文件夹内，.c文件复制到Src文件夹
+
+然后修改CMakeLists.txt文件：
+找到set(sources_SRCS)和set(include_DIRS)这两部分代码，在set(sources_SRCS)代码上方添加代码：
+
+
