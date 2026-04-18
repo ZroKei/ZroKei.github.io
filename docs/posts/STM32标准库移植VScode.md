@@ -113,3 +113,4 @@ set(symbols_c_SYMB
 )
 ```
 
+修改好了之后，在VScode的运行和调试界面进行运行和调试
