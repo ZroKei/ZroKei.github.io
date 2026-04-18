@@ -60,7 +60,7 @@ export default defineConfig({
           { text: '前言', link: '/preface' },
           { text: '快速上手', link: '/getting-started' },
           { text: '配置', link: '/configuration' },
-          { text: '页面', link: '/page' },
+          { text: '使用VScode开发STM32标准库', link: '/posts/STM32标准库移植VScode' },
           { text: '文档', link: '/posts/蓝桥杯嵌入式' },
           { text: '定时器中断', link: '/posts/定时器中断' },
         ],
