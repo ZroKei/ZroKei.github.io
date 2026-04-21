@@ -88,6 +88,6 @@ __weak void HAL_Delay(uint32_t Delay)
 
 上面是HAL_Delay函数的内容，HAL_Delay的原理是不断比较当前是否达到延迟时间，也就是占用着CPU不断运算，而osDelay则是让自己进入阻塞态不断等待，让出CPU的运行资源知道延时结束再等待被分配时间片
 
-![8f90a3004cb9294c71207408beadd3e4](\8f90a3004cb9294c71207408beadd3e4.png)
+![8f90a3004cb9294c71207408beadd3e4](/8f90a3004cb9294c71207408beadd3e4.png)
 
 在创建任务时，FreeRTOS会默认将代表正在运行的任务的指针变量(pxCurrentTCB)
