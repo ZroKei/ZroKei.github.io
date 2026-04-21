@@ -10,11 +10,11 @@
 
 ​	除了通用寄存器外，还有特殊寄存器，比如：
 
-R13：栈指针寄存器，简称SP寄存器（Stack Pointer）
+**R13：栈指针寄存器，简称SP寄存器（Stack Pointer）**
 
-R14：链接寄存器，简称LR寄存器（Link Register）
+**R14：链接寄存器，简称LR寄存器（Link Register）**
 
-R15：程序计数寄存器，简称PC寄存器（Program Counter）
+**R15：程序计数寄存器，简称PC寄存器（Program Counter）**
 
 其中，PC寄存器中存储着CPU将要执行的指令所在的Flash地址，每次执行完一个指令，将会指向下一个要执行的指令
 
@@ -22,5 +22,45 @@ FreeRTOS有一个叫做“时间片”的概念，默认情况下一个时间片
 
 其实，在FreeRTOS中还包括了**优先级、就绪、挂起、阻塞**等概念，每个任务之间也不都是这样的回合制切换。
 
-总结：任务切换的本质是在给CPU的寄存器‘偷梁换柱’，将CPU寄存器值存入任务栈，以及从任务栈恢复寄存器值
+**总结：任务切换的本质是在给CPU的寄存器“偷梁换柱”，将CPU寄存器值存入任务栈，以及从任务栈恢复寄存器值**
+
+### 2.任务状态
+
+示例代码：
+
+```c
+void StartLEDTask(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  for(;;)
+  {
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+    osDelay(500);
+  }
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_StartSerialTask */
+/**
+* @brief Function implementing the SerialTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSerialTask */
+void StartSerialTask(void *argument)
+{
+  /* USER CODE BEGIN StartSerialTask */
+  char msg[] = "Hello World";
+  /* Infinite loop */
+  for(;;)
+  {
+    HAL_UART_Transmit(&huart1, (uint8_t *)msg, sizeof(msg)-1, HAL_MAX_DELAY);
+    osDelay(200);
+  }
+  /* USER CODE END StartSerialTask */
+}
+```
+
+以上述代码为例，我们在每个任务函数中都加入了osDelay()延时函数，而FreeRTOS又存在时间片这一概念，那延时函数在调用时是否是在浪费时间片的时间，导致需要紧急运行的任务无法立马执行，甚至在运行时由于时间片耗尽而被打断。为了防止这种情况出现，FreeRTOS中每个任务都有一个**“任务状态”**的概念，用来划定哪个任务需要运行、哪个任务暂时不需要运行
 
