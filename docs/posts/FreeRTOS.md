@@ -66,5 +66,25 @@ void StartSerialTask(void *argument)
 
 当osThreadNew函数创建任务后，这些任务就会被FreeRTOS认为处于**就绪态**，等待被分配时间片运行，而当程序运行了osKernelStart系统内核启动，FreeRTOS的调度器就会从正在排队的就绪态任务中取出一个任务，分配时间片让其运行，此时这个任务的任务状态叫做**运行态**，当运行态的任务时间片耗尽时，FreeRTOS调度器就会将其送回就绪态排队，然后给下一个就绪态的任务分配时间片，让其进入运行态运行，这样循环就实现了任务依次分配时间片运行。
 
-为了解决任务调用延时函数会空耗CPU等类似的问题，FreeRTOS又引入了**阻塞态**，当处于运行态的任务运行到osDelay函数进行延时，及时此时时间片没有耗尽，也会将自己的任务状态设为阻塞态，以此来让出CPU的运行资源，然后调度器在为下一个处于就绪态的任务分配时间片运行，而处于阻塞态的任务不再参与时间片的分配，知道osDelay的延时时间结束，调度器会再将其设置为就绪态重新开始排队，等待时间片的分配，解决了CPU会被占用的问题，这也是为什么在任务中我们使用osDelay而不是HAL_Delay的原因
+为了解决任务调用延时函数会空耗CPU等类似的问题，FreeRTOS又引入了**阻塞态**，当处于运行态的任务运行到osDelay函数进行延时，及时此时时间片没有耗尽，也会将自己的任务状态设为阻塞态，以此来让出CPU的运行资源，然后调度器在为下一个处于就绪态的任务分配时间片运行，而处于阻塞态的任务不再参与时间片的分配，知道osDelay的延时时间结束，调度器会再将其设置为就绪态重新开始排队，等待时间片的分配，解决了CPU会被占用的问题，这也是为什么在任务中我们使用osDelay而不是HAL_Delay的原因。
+
+```c
+__weak void HAL_Delay(uint32_t Delay)
+{
+  uint32_t tickstart = HAL_GetTick();
+  uint32_t wait = Delay;
+
+  /* Add a freq to guarantee minimum wait */
+  if (wait < HAL_MAX_DELAY)
+  {
+    wait += (uint32_t)(uwTickFreq);
+  }
+
+  while ((HAL_GetTick() - tickstart) < wait)
+  {
+  }
+}
+```
+
+上面是HAL_Delay函数的内容，HAL_Delay的原理是不断比较当前是否达到延迟时间，也就是占用着CPU不断运算，而osDelay则是让自己进入阻塞态不断等待，让出CPU的运行资源知道延时结束再等待被分配时间片
 
