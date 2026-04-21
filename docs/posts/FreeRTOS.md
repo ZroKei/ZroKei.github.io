@@ -90,4 +90,4 @@ __weak void HAL_Delay(uint32_t Delay)
 
 ![8f90a3004cb9294c71207408beadd3e4](/8f90a3004cb9294c71207408beadd3e4.png)
 
-在创建任务时，FreeRTOS会默认将代表正在运行的任务的指针变量(pxCurrentTCB)
+在创建任务时，FreeRTOS会默认将代表正在运行的任务的指针变量(pxCurrentTCB)指向优先级最大的任务，一边调度器启动时直接执行，所以即使是FreeRTOS调度器尚未工作，调试工具也认为LEDTask处于运行态
