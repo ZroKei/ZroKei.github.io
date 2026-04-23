@@ -94,4 +94,10 @@ __weak void HAL_Delay(uint32_t Delay)
 
 ![alt text](/edce9201299eb5bd2a3eb92ad297604f.png)
 
-在使用Clion进行调试时，会出现两个新的任务，其中IDLE任务是空闲任务，当没有就绪态任务时FreeRTOS就会执行它，用来做一些自动的资源整理。Tmr Svc是定时器任务，是用来处理FreRTOS的软件定时器的
+![alt text](/00d7184be35a89610b86e2f8881e3524.png)
+
+在使用Clion进行调试时，会出现两个新的任务，其中IDLE任务是空闲任务，当没有就绪态任务时FreeRTOS就会执行它，用来做一些自动的资源整理。Tmr Svc是定时器任务，是用来处理FreRTOS的软件定时器的。
+Clion的FreeRTOS调试器将有超时时间的阻塞态表述为Delayed，但实际上FreeRTOS对阻塞态的官方英文为Blocked
+
+
+
