@@ -102,3 +102,7 @@ Clion的FreeRTOS调试器将有超时时间的阻塞态表述为Delayed，但实
 ![alt text](/image.png)
 
 ![alt text](/image1.png)
+
+然后是在调试过程中的一些问题，如上图所示，我们在使用Clion进行Debug的时候，右下角会弹出这个框，它的解决方法在Clion的文档中有所提及，总结为CubeMX中的配置如下图所示：
+
+![alt text](image2.png)
