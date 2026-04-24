@@ -106,3 +106,5 @@ Clion的FreeRTOS调试器将有超时时间的阻塞态表述为Delayed，但实
 然后是在调试过程中的一些问题，如上图所示，我们在使用Clion进行Debug的时候，右下角会弹出这个框，它的解决方法在Clion的文档中有所提及，总结为CubeMX中的配置如下图所示：
 
 ![alt text](image2.png)
+
+大多数默认配置就足够使用了，我们在CubeMX中可以将RECORD_STACK_HIGH_ADDRESS（开启记录栈顶地址）和GENERATE_RUN_TIME_STARTS（生成运行时统计）启用，然后生成代码就好了
