@@ -129,7 +129,9 @@ FreeRTOS调度器可确保在就绪或运行状态下的任务使用比同样处
 ### 5.队列
 队列就是一条数据运输的管道，有的任务在一段向队列里塞数据，有的任务在另一端从队列里取数据
 
-```c
+::: code-group
+
+```c [数据处理任务函数]
 void StartDataTask(void *argument)
 {
   /* USER CODE BEGIN StartDataTask */
@@ -150,7 +152,7 @@ void StartDataTask(void *argument)
 }
 ```
 
-```c
+```c [按键任务函数]
 void StartBtnTask(void *argument)
 {
   /* USER CODE BEGIN StartBtnTask */
@@ -174,7 +176,7 @@ void StartBtnTask(void *argument)
   /* USER CODE END StartBtnTask */
 }
 ```
-
+:::
 
 事件丢失：
 
