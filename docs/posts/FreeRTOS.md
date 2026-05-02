@@ -129,6 +129,55 @@ FreeRTOS调度器可确保在就绪或运行状态下的任务使用比同样处
 ### 5.队列
 队列就是一条数据运输的管道，有的任务在一段向队列里塞数据，有的任务在另一端从队列里取数据
 
+```c
+void StartDataTask(void *argument)
+{
+  /* USER CODE BEGIN StartDataTask */
+  uint32_t dataCount = 0;
+  char msg[50];
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(10);
+    if (btnPressed) {
+      dataCount++;
+      osDelay(1000);
+      sprintf(msg, "按键：%d次，数据：%d次\r\n", (int)btnCount,(int)dataCount);
+      HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+    }
+  }
+  /* USER CODE END StartDataTask */
+}
+```
 
+```c
+void StartBtnTask(void *argument)
+{
+  /* USER CODE BEGIN StartBtnTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_RESET) {
+      osDelay(1);
+      if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_RESET) {
+        btnPressed = 1;
+        btnCount++;
+      }
+      while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0) == GPIO_PIN_RESET) {
+        osDelay(10);
+      }
+    } else {
+      btnPressed = 0;
+      osDelay(10);
+    }
+  }
+  /* USER CODE END StartBtnTask */
+}
+```
+
+
+事件丢失：
+
+事件重复：
 
 
