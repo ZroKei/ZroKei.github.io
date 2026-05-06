@@ -198,12 +198,14 @@ void StartBtnTask(void *argument)
     Buffer Name：缓冲区名称，只有在Static模式下才需要
     Buffer Size：缓冲区大小，也是在Static模式下有效。（计算方式：Queue Size * Item Size）
     Control Block Name：控制块名称，队列控制结构体的名字，Static模式下有效。FreeRTOS底层需要一个结构体来管理队列：
-      ```c
-      StaticQueue_t myQueueControlBlock;
-      ```
 
-      在我们生成代码之后，app_freertos.c文件中会多出创建队列的相关代码
-      ```c
-      BtnQueueHandle = osMessageQueueNew (16, sizeof(uint32_t), &BtnQueue_attributes);
-      ```
-      调用的是osMessageQueueNew函数，队列创建函数的返回值保存在BtnQueueHandle变量中，这是队列的操作句柄
+  ```c [按键任务函数]
+  StaticQueue_t myQueueControlBlock;
+  ```
+      
+
+  在我们生成代码之后，app_freertos.c文件中会多出创建队列的相关代码
+  ```c
+  BtnQueueHandle = osMessageQueueNew (16, sizeof(uint32_t), &BtnQueue_attributes);
+  ```
+  调用的是osMessageQueueNew函数，队列创建函数的返回值保存在BtnQueueHandle变量中，这是队列的操作句柄
