@@ -210,6 +210,5 @@ void StartBtnTask(void *argument)
   ```
   调用的是osMessageQueueNew函数，队列创建函数的返回值保存在BtnQueueHandle变量中，这是队列的操作句柄。
 
-  osMessageQueuePut函数：向队列发送信息的函数，第一个参数是队列的操作句柄，第二个参数要放入·队列的数据的指针，第三个参数对于FreeRTOS没有什么用处，第四个参数是队列阻塞时的等待时间。
+  osMessageQueuePut函数：向队列发送信息的函数，第一个参数是队列的操作句柄，第二个参数要放入队列的数据的指针，第三个参数对于FreeRTOS没有什么用处，第四个参数是队列阻塞时的等待时间。
 
-  
