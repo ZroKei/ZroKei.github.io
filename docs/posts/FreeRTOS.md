@@ -189,3 +189,16 @@ void StartBtnTask(void *argument)
 由上述代码所示的情况下，我们可以将按键任务视为生产者，将数据处理任务视为消费者，我们没按下一次按键，按键任务就将按键次数塞入到队列中，数据处理任务依次取出进行处理，最后将取出来的次数依次输出出来。
 
 ![Queue](/Queue.png)
+
+上图所示为CubeMX中FreeRTOS界面在添加队列时的各个选项，分别为：
+    Queue Name：队列名称
+    Queue Size：队列长度，队列中最多能存放的数据
+    Item Size：每个数据的大小，uint16_t(2字节)。。。
+    Allocation：内存分配方式，Dynamic(动态分配)，Static(静态分配)
+    Buffer Name：缓冲区名称，只有在Static模式下才需要
+    Buffer Size：缓冲区大小，也是在Static模式下有效。（计算方式：Queue Size * Item Size）
+    Control Block Name：控制块名称，队列控制结构体的名字，Static模式下有效。FreeRTOS底层需要一个结构体来管理队列：
+      ```c
+      StaticQueue_t myQueueControlBlock;
+      ```
+      
