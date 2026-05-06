@@ -201,4 +201,9 @@ void StartBtnTask(void *argument)
       ```c
       StaticQueue_t myQueueControlBlock;
       ```
-      
+
+      在我们生成代码之后，app_freertos.c文件中会多出创建队列的相关代码
+      ```c
+      BtnQueueHandle = osMessageQueueNew (16, sizeof(uint32_t), &BtnQueue_attributes);
+      ```
+      调用的是osMessageQueueNew函数，队列创建函数的返回值保存在BtnQueueHandle变量中，这是队列的操作句柄
