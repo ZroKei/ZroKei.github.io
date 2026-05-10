@@ -225,3 +225,7 @@ void StartBtnTask(void *argument)
 
 osSemaphoreAcquire函数：参数1，操作句柄；参数2，等待时间。
 
+### 7.计数信号量
+
+计数信号量是在二进制信号量的基础上解开了队列长度的限制，可以为任意队列长度。
+
