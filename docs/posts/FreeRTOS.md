@@ -223,5 +223,5 @@ void StartBtnTask(void *argument)
 
 二进制信号量适合于某个任务需要等待某个事件的发生，加入任务A等待事件S发生后在执行接下来的代码，任务B（或者中断）负责完成事件S或者判断事件S是否发生，那么任务A可以通过osSemaphoreAcquire函数试图“获取”代表事件S发生的二进制信号量，如果没有获取到，那就进入阻塞态，不占用CPU；当任务B完成事件S或者得知事件S发生，则通过osSemaphoreRelease函数“释放”事件S，这是FreeRTOS就会“唤醒”任务A，任务A成功“获取”到信号量向下执行代码。
 
-
+osSemaphoreAcquire函数：参数1，操作句柄；参数2，等待时间。
 
