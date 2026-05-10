@@ -229,4 +229,4 @@ osSemaphoreAcquire函数：参数1，操作句柄；参数2，等待时间。
 
 计数信号量是在二进制信号量的基础上解开了队列长度的限制，可以为任意队列长度。每个位置依旧是0字节。
 
-当生产者任务使用osSemaphoreRelease“释放”信号量时，数据数量+1；当有消费者任务通过osSemaphoreAcquire“获取”信号量时，数据数量-1。
+当生产者任务使用osSemaphoreRelease“释放”信号量时，数据数量+1；当有消费者任务通过osSemaphoreAcquire“获取”信号量时，只要有信号存在，数据数量-1。
