@@ -62,7 +62,7 @@ export default defineConfig({
           { text: '文档', link: '/posts/蓝桥杯嵌入式' },
           { text: '定时器中断', link: '/posts/定时器中断' },
           { text: 'FreeRTOS', link: '/posts/FreeRTOS' },
-          { text: 'ESP32-Arduino', link: '/posts/ESP32-Arduino' },
+          { text: 'ESP32-Arduino', link: '/posts/ESP32' },
           
         ],
       },
