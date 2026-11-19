@@ -13,13 +13,23 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('https://github.com/ZroKei/blogImg/blob/main/1000169077.png?raw=true');
+  /* 本地 WebP：2560x1440 / 152KB
+     原先是 GitHub 外链的 6969x3920 PNG，19.8MB，每次打开都要重新拉 */
+  background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('/bg-2560.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   color: var(--text-color);
-  transition: background-image 0.3s ease;
+}
+
+/* 小屏改用 1080p 版本；同时把 fixed 换成 scroll，
+   移动端 Safari 的 fixed 背景是滚动掉帧的主要原因 */
+@media (max-width: 1200px) {
+  body {
+    background-image: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('/bg-1920.webp');
+    background-attachment: scroll;
+  }
 }
 
 /* 让页脚背景完全透明，取消模糊 */
