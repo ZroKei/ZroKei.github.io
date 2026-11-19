@@ -88,24 +88,24 @@ __weak void HAL_Delay(uint32_t Delay)
 
 上面是HAL_Delay函数的内容，HAL_Delay的原理是不断比较当前是否达到延迟时间，也就是占用着CPU不断运算，而osDelay则是让自己进入阻塞态不断等待，让出CPU的运行资源知道延时结束再等待被分配时间片
 
-![8f90a3004cb9294c71207408beadd3e4](/8f90a3004cb9294c71207408beadd3e4.png)
+![8f90a3004cb9294c71207408beadd3e4](/8f90a3004cb9294c71207408beadd3e4.webp)
 
 在创建任务时，FreeRTOS会默认将代表正在运行的任务的指针变量(pxCurrentTCB)指向优先级最大的任务，一边调度器启动时直接执行，所以即使是FreeRTOS调度器尚未工作，调试工具也认为LEDTask处于运行态
 
-![alt text](/edce9201299eb5bd2a3eb92ad297604f.png)
+![alt text](/edce9201299eb5bd2a3eb92ad297604f.webp)
 
-![alt text](/00d7184be35a89610b86e2f8881e3524.png)
+![alt text](/00d7184be35a89610b86e2f8881e3524.webp)
 
 在使用Clion进行调试时，会出现两个新的任务，其中IDLE任务是空闲任务，当没有就绪态任务时FreeRTOS就会执行它，用来做一些自动的资源整理。Tmr Svc是定时器任务，是用来处理FreRTOS的软件定时器的。
 Clion的FreeRTOS调试器将有超时时间的阻塞态表述为Delayed，但实际上FreeRTOS对阻塞态的官方英文为Blocked。如果调用osThread函数，此时处于挂起态的任务StartSerialTask会处于挂起态，此时的运行状态也是Blocked，而FreeRTOS官方挂起态的英文是Suspended。这是因为FreeRTOS将无超时时间的阻塞态和挂起态任务都放入了同一个列表中，Clion没有区分，都标记为了Blocked。而我们区分的方法是：如果没有等待的时间那便是挂起态，而如果有等待的时间，那就说明任务会因事件发生而回到就绪态，因而是阻塞态
 
-![alt text](/image.png)
+![alt text](/image.webp)
 
 ![alt text](/image1.png)
 
 然后是在调试过程中的一些问题，如上图所示，我们在使用Clion进行Debug的时候，右下角会弹出这个框，它的解决方法在Clion的文档中有所提及，总结为CubeMX中的配置如下图所示：
 
-![alt text](/image2.png)
+![alt text](/image2.webp)
 
 大多数默认配置就足够使用了，我们在CubeMX中可以将RECORD_STACK_HIGH_ADDRESS（开启记录栈顶地址）和GENERATE_RUN_TIME_STARTS（生成运行时统计）启用，然后生成代码就好了
 
@@ -188,7 +188,7 @@ void StartBtnTask(void *argument)
 
 由上述代码所示的情况下，我们可以将按键任务视为生产者，将数据处理任务视为消费者，我们没按下一次按键，按键任务就将按键次数塞入到队列中，数据处理任务依次取出进行处理，最后将取出来的次数依次输出出来。
 
-![Queue](/Queue.png)
+![Queue](/Queue.webp)
 
 上图所示为CubeMX中FreeRTOS界面在添加队列时的各个选项，分别为：
     Queue Name：队列名称
