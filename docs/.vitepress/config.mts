@@ -25,7 +25,23 @@ export default defineConfig({
       // 开启图片懒加载
       lazyLoading: true
     },
-    
+
+    // 在正文「第一个 h1」之后注入字数/阅读时间组件
+    // 只插第一个：蓝桥杯那篇有 7 个 h1，全插会重复 7 次
+    config: (md) => {
+      md.renderer.rules.heading_close = (tokens, idx, options, env, self) => {
+        const html = self.renderToken(tokens, idx, options)
+        if (tokens[idx].tag !== 'h1') return html
+
+        // 判断此前是否已经闭合过一个 h1（当前这个 heading_close 在 idx 上，
+        // 它对应的 heading_open 在 idx-2，不能算作"之前"）
+        const seenPrevH1 = tokens
+          .slice(0, idx)
+          .some((t) => t.type === 'heading_close' && t.tag === 'h1')
+
+        return seenPrevH1 ? html : `${html}<ArticleMetadata />`
+      }
+    }
   },
 
   //本地搜索：构建时用 pagefind 生成索引，chineseSearchOptimize 做中文分词
