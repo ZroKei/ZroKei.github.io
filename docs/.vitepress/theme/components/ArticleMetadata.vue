@@ -83,8 +83,8 @@ watch(() => page.value.relativePath, () => nextTick(analyze))
   align-items: center;
   gap: 4px 18px;
   /* h1 自身没有下边距（默认主题只给了 line-height），这里给足呼吸空间：
-     与标题拉开 14px，与正文拉开 30px，读起来是一组「标题 + 副信息」 */
-  margin: 14px 0 30px;
+     与标题拉开 20px，与正文拉开 32px，读起来是一组「标题 + 副信息」 */
+  margin: 20px 0 32px;
   font-size: 14px;
   line-height: 1.5;
   color: var(--vp-c-text-2);
