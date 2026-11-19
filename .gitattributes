@@ -1,0 +1,5 @@
+# git hook 脚本必须保持 LF，否则在 Windows 上检出后 sh 会报 bad interpreter
+.githooks/** -text
+
+# 批处理脚本保持原样，避免 CRLF 被改写
+*.bat -text

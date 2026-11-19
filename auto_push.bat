@@ -9,6 +9,9 @@ if exist "%~dp0.git\rebase-merge" goto busy
 if exist "%~dp0.git\rebase-apply" goto busy
 if exist "%~dp0.git\MERGE_HEAD" goto busy
 
+rem ---- guard: another git process is running (index locked) ----
+if exist "%~dp0.git\index.lock" goto busy
+
 rem ---- rotate log at 256 KB ----
 if exist "%LOG%" for %%A in ("%LOG%") do if %%~zA GTR 262144 del "%LOG%" >nul 2>&1
 echo [%time%] save>>"%LOG%"
