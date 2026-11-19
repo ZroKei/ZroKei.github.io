@@ -1,35 +1,44 @@
 #!/bin/sh
-# post-commit: 任何来源的提交（VS Code 源代码管理面板 / 命令行 / 脚本 / AI 工具）
-# 都会自动推送到 GitHub。
-# 与 auto_push.bat 互补：bat 负责 add + commit + push，本 hook 只负责 push。
+# post-commit: 后台异步推送。
+#
+# 关键约束：hook 必须立刻返回。
+# git commit 会等 hook 跑完才返回，VS Code 的"提交"按钮就会一直转圈；
+# 这条网络到 github.com 时不时要几十秒甚至超时，所以 push 一律丢到后台。
+#
+# 另外：auto_push.bat 运行期间会独占 .git/auto-push.log（Windows 同一文件二次
+# 打开会报 Device or resource busy，重定向失败会导致整条命令不执行），
+# 因此这里用独立日志 .git/hook-push.log。
 
 GIT_DIR_PATH=$(git rev-parse --git-dir)
-LOG="$GIT_DIR_PATH/auto-push.log"
+LOG="$GIT_DIR_PATH/hook-push.log"
 FAILED="$GIT_DIR_PATH/../PUSH_FAILED.txt"
 
-# 日志超过 256KB 就清空（与 auto_push.bat 的轮转策略一致）
+# 日志超过 256KB 就清空
 if [ -f "$LOG" ] && [ "$(wc -c < "$LOG")" -gt 262144 ]; then
   : > "$LOG"
 fi
 
-echo "[$(date '+%H:%M:%S')] post-commit -> push" >> "$LOG"
+(
+  # 必须重定向掉继承来的 stdin/stdout/stderr，否则父进程退出后管道仍被占用，
+  # 调用方（VS Code）读不到 EOF，照样会卡住。
+  exec </dev/null >>"$LOG" 2>&1
 
-# 后台运行时没有终端，禁止 git 弹出凭据提示
-export GIT_TERMINAL_PROMPT=0
-PUSH_OPTS="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
+  echo "[$(date '+%H:%M:%S')] post-commit -> push (async)"
 
-if git $PUSH_OPTS push --quiet >> "$LOG" 2>&1; then
-  rm -f "$FAILED"
-  exit 0
-fi
+  export GIT_TERMINAL_PROMPT=0
+  PUSH_OPTS="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
 
-# 远端有新提交（例如在 github.com 网页上改过）：rebase 后重试一次
-git pull --rebase --autostash --quiet >> "$LOG" 2>&1
-if git $PUSH_OPTS push --quiet >> "$LOG" 2>&1; then
-  rm -f "$FAILED"
-else
-  echo "push failed at $(date '+%Y-%m-%d %H:%M:%S') - see .git/auto-push.log" > "$FAILED"
-fi
+  # 45 秒硬超时：卡住就放弃，交给 10 分钟一次的定时任务在后台重试
+  if timeout 45 git $PUSH_OPTS push --quiet; then
+    rm -f "$FAILED"
+    exit 0
+  fi
 
-# post-commit 永远返回成功，避免影响提交本身
+  # 这里故意不做 rebase：远端分叉的兜底由 auto_push.bat 负责，
+  # 避免后台偷偷改写工作区，打断正在编辑的文件。
+  echo "[$(date '+%H:%M:%S')] push failed (timeout or rejected), left for auto_push.bat"
+  echo "push failed at $(date '+%Y-%m-%d %H:%M:%S') - see .git/hook-push.log" > "$FAILED"
+  exit 1
+) &
+
 exit 0
