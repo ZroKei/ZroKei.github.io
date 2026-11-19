@@ -1,13 +1,15 @@
 #!/bin/sh
-# post-commit: 后台异步推送。
+# post-commit: 提交后自动推送。
 #
-# 关键约束：hook 必须立刻返回。
-# git commit 会等 hook 跑完才返回，VS Code 的"提交"按钮就会一直转圈；
-# 这条网络到 github.com 时不时要几十秒甚至超时，所以 push 一律丢到后台。
+# 两条硬约束（都是踩过的坑）：
+# 1. 必须有时限。git commit 要等 hook 跑完才返回，这里一旦卡住，
+#    VS Code 的"提交"按钮就会一直转圈。所有 git 命令都套 timeout。
+# 2. 不能和 auto_push.bat 共用日志。bat 运行时会独占 .git/auto-push.log
+#    （Windows 同一文件二次打开报 Device or resource busy），重定向失败
+#    会导致整条命令不执行，推送被静默吞掉。所以这里用 .git/hook-push.log。
 #
-# 另外：auto_push.bat 运行期间会独占 .git/auto-push.log（Windows 同一文件二次
-# 打开会报 Device or resource busy，重定向失败会导致整条命令不执行），
-# 因此这里用独立日志 .git/hook-push.log。
+# 注意：Windows 下 `( ... ) &` 派生的子进程会随父进程退出被杀掉，
+# 试过异步推送但活不下来，所以这里是同步 + 超时。
 
 GIT_DIR_PATH=$(git rev-parse --git-dir)
 LOG="$GIT_DIR_PATH/hook-push.log"
@@ -18,27 +20,21 @@ if [ -f "$LOG" ] && [ "$(wc -c < "$LOG")" -gt 262144 ]; then
   : > "$LOG"
 fi
 
-(
-  # 必须重定向掉继承来的 stdin/stdout/stderr，否则父进程退出后管道仍被占用，
-  # 调用方（VS Code）读不到 EOF，照样会卡住。
-  exec </dev/null >>"$LOG" 2>&1
+echo "[$(date '+%H:%M:%S')] post-commit -> push" >> "$LOG"
 
-  echo "[$(date '+%H:%M:%S')] post-commit -> push (async)"
+# 后台运行时没有终端，禁止 git 弹出凭据提示
+export GIT_TERMINAL_PROMPT=0
+PUSH_OPTS="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10"
 
-  export GIT_TERMINAL_PROMPT=0
-  PUSH_OPTS="-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=15"
+# 12 秒上限：网络正常时小推送 1~3 秒；卡住就放弃，交给 10 分钟一次的定时任务
+if timeout 12 git $PUSH_OPTS push --quiet >> "$LOG" 2>&1; then
+  rm -f "$FAILED"
+  exit 0
+fi
 
-  # 45 秒硬超时：卡住就放弃，交给 10 分钟一次的定时任务在后台重试
-  if timeout 45 git $PUSH_OPTS push --quiet; then
-    rm -f "$FAILED"
-    exit 0
-  fi
-
-  # 这里故意不做 rebase：远端分叉的兜底由 auto_push.bat 负责，
-  # 避免后台偷偷改写工作区，打断正在编辑的文件。
-  echo "[$(date '+%H:%M:%S')] push failed (timeout or rejected), left for auto_push.bat"
-  echo "push failed at $(date '+%Y-%m-%d %H:%M:%S') - see .git/hook-push.log" > "$FAILED"
-  exit 1
-) &
+# 这里故意不做 rebase：远端分叉的兜底由 auto_push.bat 负责，
+# 避免 hook 偷偷改写工作区，打断正在编辑的文件。
+echo "[$(date '+%H:%M:%S')] push failed (timeout or rejected), left for auto_push.bat" >> "$LOG"
+echo "push failed at $(date '+%Y-%m-%d %H:%M:%S') - see .git/hook-push.log" > "$FAILED"
 
 exit 0
