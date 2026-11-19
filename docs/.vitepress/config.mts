@@ -82,7 +82,7 @@ export default defineConfig({
           { text: '定时器中断', link: '/posts/定时器中断' },
           { text: 'FreeRTOS', link: '/posts/FreeRTOS' },
           { text: 'ESP32-Arduino', link: '/posts/ESP32' },
-          
+          { text: '立创天猛星学习', link: '/posts/立创天猛星学习' },
         ],
       },
     ],
